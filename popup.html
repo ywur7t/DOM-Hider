@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 500px;
+      min-width: 300px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+
+      background-color: #fbeeff;
+
+      display: flex;
+      flex-direction: column;
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: calc(100% - 20px);
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    button {
+      background-color: #000000;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #rules-list {
+      margin-top: 10px;
+      background-color: #ffc4f6;
+    }
+    .rule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    .remove-rule {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="website-url" placeholder="Website URL (e.g. example.com)">
+  <input type="text" id="element-selector" placeholder="Element ID or Class (e.g. #ad or .banner)">
+  <button id="add-rule">Add Rule</button>
+  <div id="rules-list"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
