@@ -65,8 +65,45 @@ function updateRulesList(rules) {
           chrome.tabs.sendMessage(tabs[0].id, {action: "applyRules", rules: newRules});
         });
       });
+
+
+      function generateCSSFromRules(rules) {
+      const currentHost = new URL(location.href).hostname;
+      return rules.map(rule => {
+        if (
+          rule.websiteUrl === '*' ||
+          currentHost.includes(rule.websiteUrl)
+        ) {
+          return `${rule.elementSelector} { display: none !important; }`;
+        }
+        return '';
+      }).join('\n');
+    }
+
+    function updateHideCSS(rules) {
+      const cssText = generateCSSFromRules(rules);
+      chrome.storage.local.set({ hideCSS: cssText });
+    }
+
+
+
+
+
     });
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 chrome.storage.sync.get({rules: []}, (data) => {
   updateRulesList(data.rules);
@@ -78,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (result.lastPicked) {
       let { url, selector } = result.lastPicked;
       document.getElementById('website-url').value = new URL(url).hostname;
-      // document.getElementById('element-selector').value = selector;
       if (selector.endsWith('.highlight_cursor_pointer')) {
           selector = selector.slice(0, -'.highlight_cursor_pointer'.length);
       }
@@ -105,8 +141,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "elementPicked" && selectionActive) {
     selectionActive = false;
     document.getElementById('website-url').value = new URL(request.url).hostname;
-    // document.getElementById('element-selector').value = request.selector;
-    let selector = request.selector;
+    const selector = request.selector;
     if (selector.endsWith('.highlight_cursor_pointer')) {
         selector = selector.slice(0, -'.highlight_cursor_pointer'.length);
     }

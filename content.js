@@ -26,3 +26,11 @@ function applyRules(rules) {
   hideElements();
   setInterval(hideElements, 1000);
 }
+
+chrome.storage.local.get('hideCSS', ({ hideCSS }) => {
+  if (hideCSS) {
+    const style = document.createElement('style');
+    style.textContent = hideCSS;
+    document.documentElement.appendChild(style);
+  }
+});

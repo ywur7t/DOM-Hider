@@ -67,13 +67,9 @@ document.addEventListener('keydown', (e) => {
       unhighlight_cursor_pointerElement(currentElement);
       currentElement = null;
     }
-
-    // Убираем все обработчики и сбрасываем флаг
     document.removeEventListener('mouseover', handleMouseOver, true);
     document.removeEventListener('click', handleClick, true);
     window.elementPickerActive = false;
-
-    // По желанию: удалить стиль, чтобы убрать crosshair
     const style = document.getElementById('picker-style');
     if (style) style.remove();
   }
