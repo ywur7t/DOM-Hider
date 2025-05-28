@@ -69,6 +69,12 @@
       background-color: rgba(68, 7, 68, 0.758);
       color: white;
     }
+    .rule-item span:first-child {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .remove-rule {
       color: rgb(255, 113, 113);
       cursor: pointer;
@@ -83,10 +89,13 @@
       border: 3px solid rgb(255, 113, 113);
       border-radius: 10px;
     }
+
+
   </style>
 </head>
 <body>
   <div class="buttons">
+    <button id="pick-element">Cursor Point</button>
     <input type="text" id="website-url" placeholder="Website URL (e.g. example.com)">
     <input type="text" id="element-selector" placeholder="Element ID or Class (e.g. #ad or .banner)">
     <button id="add-rule">Add Rule</button>
