@@ -1,2 +1,3 @@
 # DOM-Hider
-Extention for browser
+Extention for chromium
+hide blocks you don't want to see
