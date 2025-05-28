@@ -1,8 +1,6 @@
-// Сохраняем значения полей при потере фокуса
 document.getElementById('website-url').addEventListener('blur', saveFields);
 document.getElementById('element-selector').addEventListener('blur', saveFields);
 
-// Функция для сохранения значений полей
 function saveFields() {
   const websiteUrl = document.getElementById('website-url').value.trim();
   const elementSelector = document.getElementById('element-selector').value.trim();
@@ -11,15 +9,12 @@ function saveFields() {
     lastFields: { websiteUrl, elementSelector } 
   });
 }
-
-// Функция для загрузки сохраненных правил
 function loadRules() {
   chrome.storage.sync.get({rules: []}, (data) => {
     updateRulesList(data.rules);
   });
 }
 
-// Восстанавливаем значения полей при открытии popup
 function restoreFields() {
   chrome.storage.local.get(['lastFields'], function(result) {
     if (result.lastFields) {
@@ -29,19 +24,10 @@ function restoreFields() {
   });
 }
 
-// Инициализация при загрузке popup
 document.addEventListener('DOMContentLoaded', function() {
   restoreFields();
   loadRules();
 });
-
-
-
-
-
-
-
-
 
 document.getElementById('add-rule').addEventListener('click', () => {
   const websiteUrl = document.getElementById('website-url').value.trim();
@@ -56,35 +42,12 @@ document.getElementById('add-rule').addEventListener('click', () => {
     const newRules = [...data.rules, {websiteUrl, elementSelector}];
     chrome.storage.sync.set({rules: newRules}, () => {
       updateRulesList(newRules);
-      // Send message to content script to apply new rules
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, {action: "applyRules", rules: newRules});
       });
     });
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function updateRulesList(rules) {
   const rulesList = document.getElementById('rules-list');
@@ -100,14 +63,12 @@ function updateRulesList(rules) {
     rulesList.appendChild(ruleItem);
   });
 
-  // Add event listeners to remove buttons
   document.querySelectorAll('.remove-rule').forEach(button => {
     button.addEventListener('click', (e) => {
       const index = parseInt(e.target.getAttribute('data-index'));
       const newRules = rules.filter((_, i) => i !== index);
       chrome.storage.sync.set({rules: newRules}, () => {
         updateRulesList(newRules);
-        // Send message to content script to apply updated rules
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
           chrome.tabs.sendMessage(tabs[0].id, {action: "applyRules", rules: newRules});
         });
@@ -116,7 +77,6 @@ function updateRulesList(rules) {
   });
 }
 
-// Load existing rules on popup open
 chrome.storage.sync.get({rules: []}, (data) => {
   updateRulesList(data.rules);
 });

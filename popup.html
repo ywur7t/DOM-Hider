@@ -7,54 +7,95 @@
       padding:0;
       box-sizing: border-box;
     }
+    html{
+      background-color: #875187;
+      border: 1px solid #C7E9D8;
+      height: 600px;
+      width: 400px;
+    }
     body {
-      width: 500px;
-      min-width: 300px;
-      padding: 10px;
+      padding: 5px 0;
       font-family: Arial, sans-serif;
-
-      background-color: #fbeeff;
-
+      font-size: 12px;
       display: flex;
       flex-direction: column;
+      padding: 10px;
+
+    }
+    .buttons{
+      background-color: #DA9AD8;
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
     input, button {
-      margin: 10px 0;
+      background-color: #E3C2E3;
+      margin: 10px 0 0;
       padding: 10px;
       width: calc(100% - 20px);
       margin-left: 10px;
       margin-right: 10px;
+      border: 1px solid white;
+      border-radius: 8px;
     }
     button {
-      background-color: #000000;
+      background-color: #48306F;
       color: white;
       border: none;
       cursor: pointer;
+      margin: 10px;
     }
     button:hover {
       background-color: #45a049;
     }
-    #rules-list {
-      margin-top: 10px;
+    #list{
       background-color: #ffc4f6;
+      height: fit-content;
+      border: 1px solid #ffc4f6;
+      border-radius: 10px;
+
+      padding: 2px 10px;
+    }
+    #rules-list {
+      overflow-y: hidden;
+      padding: 5px 0;
     }
     .rule-item {
       display: flex;
       justify-content: space-between;
-      padding: 5px;
-      border-bottom: 1px solid #eee;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 2px solid #eee;
+      border-radius: 7px;
+      background-color: rgba(68, 7, 68, 0.758);
+      color: white;
     }
     .remove-rule {
-      color: red;
+      color: rgb(255, 113, 113);
       cursor: pointer;
+      border: 1px solid rgb(255, 113, 113);
+      border-radius: 5px;
+      padding: 5px;
+    }
+    .remove-rule:hover{
+      color:red;
+      background-color: #fff;
+      font-weight: 900;
+      border: 3px solid rgb(255, 113, 113);
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <input type="text" id="website-url" placeholder="Website URL (e.g. example.com)">
-  <input type="text" id="element-selector" placeholder="Element ID or Class (e.g. #ad or .banner)">
-  <button id="add-rule">Add Rule</button>
-  <div id="rules-list"></div>
+  <div class="buttons">
+    <input type="text" id="website-url" placeholder="Website URL (e.g. example.com)">
+    <input type="text" id="element-selector" placeholder="Element ID or Class (e.g. #ad or .banner)">
+    <button id="add-rule">Add Rule</button>
+  </div>
+  
+  <div id="list">
+    <div id="rules-list"></div>
+  </div>
+  
   <script src="popup.js"></script>
 </body>
 </html>
